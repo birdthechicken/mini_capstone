@@ -4,8 +4,17 @@ class Api::ProductsController < ApplicationController
     render 'all_products_view.json.jbuilder'
   end
 
-  def one_product_action
+  def first_product_action
     @product = Product.first
-    render 'one_product_view.json.jbuilder'
+    render 'first_product_view.json.jbuilder'
+  end
+
+  def second_product_action
+    @product = Product.find(2)
+    render 'second_product_view.json.jbuilder'
+  end
+  def third_product_action
+    @product = Product.find(3)
+    render 'third_product_view.json.jbuilder'
   end
 end
