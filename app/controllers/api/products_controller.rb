@@ -1,27 +1,37 @@
 class Api::ProductsController < ApplicationController
   def index
+    search_term = params[:search]
+    discounted = params[:discount]
+    sort_attribute = params[:sort]
+    sort_order = params[:sort_order]
+    
     @products = Product.all
 
-
-    search_term = params[:search]
     if search_term
       @products = @products.where("name iLIKE ?", "%#{search_term}%")
     end
 
-    discounted = params[:discount]
-    if discounted
+    if discounted == "true"
       @products = @products.where("price < ?", 1000) 
+    end
 
+    if sort_attribute == "price" && sort_order == "desc"
+      @products = @products.order(price: :desc)
+    elsif sort_attribute == "price"
+      @products = @products.order(:price)
+    else
+      @products = @products.order(:id)
     end
     render 'index.json.jbuilder'
   end
 
   def create
     @product = Product.new(
-                            name: params[:name],
-                            price: params[:price],
-                            image_url: params[:image_url],
-                            description: params[:description]
+                          name: params[:name],
+                          price: params[:price],
+                          image_url: params[:image_url],
+                          description: params[:description],
+                          supplier_id: params[:supplier_id]
                           )
 
     if @product.save
@@ -43,6 +53,7 @@ class Api::ProductsController < ApplicationController
     @product.price = params[:price] || @product.price
     @product.image_url = params[:image_url] || @product.image_url
     @product.description = params[:description] || @product.description
+    @product.supplier_id = params[:supplier_id] || @products.supplier_id
 
     if @product.save
       render 'show.json.jbuilder'
