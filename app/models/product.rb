@@ -9,7 +9,16 @@ class Product < ApplicationRecord
   validates :description, presence: true
   # validates :description, length: { in: 5..200 }
 
-  validates :image_url, length: { maximum: 255 }
+  has_many :images
+  # def images
+  #     Image.where(product_id: self.id)
+  # end
+
+  belongs_to :supplier
+  # def supplier
+  #   # the purpose of this method is to return the Supplier Object associated with this product
+  #   Supplier.find_by(id: self.supplier_id) 
+  # end
 
   def is_discounted?
     price < 1000

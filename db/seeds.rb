@@ -7,11 +7,21 @@
 #   {name: "Toshiba", price: "950.0", image_url: "https://img.purch.com/rc/240x156/aHR0cHM6Ly93d3cubGFwdG9wbWFnLmNvbS9pbWFnZXMvdXBsb2Fkcy9wcHJlc3MvNDQ4NzgvdG9zaGliYS1raXJhYm9vay0yMDE1LTMwMHgxOTQuanBn", description: "something not to buy", in_stock: true}
 # ])
 
-supplier = Supplier.new(name: "Apple", email: "apple@apple.com", phone_number: "555-3434444")
-supplier.save
+# supplier = Supplier.new(name: "Apple", email: "apple@apple.com", phone_number: "555-3434444")
+# supplier.save
 
-supplier = Supplier.new(name: "Hewlett Packard", email: "hp@hp.com", phone_number: "312-5434456")
-supplier.save
+# supplier = Supplier.new(name: "Hewlett Packard", email: "hp@hp.com", phone_number: "312-5434456")
+# supplier.save
 
-supplier = Supplier.new(name: "Toshiba Co", email: "toshiba@toshiba.com", phone_number: "773-445678")
-supplier.save
+# supplier = Supplier.new(name: "Toshiba Co", email: "toshiba@toshiba.com", phone_number: "773-445678")
+# supplier.save
+
+# products = Product.all
+
+# products.each do |product|
+#   image = Image.new(url: product.image_url, product_id: product.id)
+#   image.save
+# end
+
+
+ Product.all.each { |product| Image.create(url: product.image_url, product_id: product.id) }
