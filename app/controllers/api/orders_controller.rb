@@ -1,11 +1,9 @@
 class Api::OrdersController < ApplicationController
+  before_action :authenticate_user
+
   def index
-    if current_user
       @orders = current_user.orders 
       render 'index.json.jbuilder'
-    else
-      render json: []
-    end
   end
 
 
@@ -27,7 +25,7 @@ class Api::OrdersController < ApplicationController
     if @order.save
       render 'show.json.jbuilder'
     else
-      render json: {errors: @order.errors.full_messages}, status: :bad_request
+      render json: {errors: @order.errors.full_messages}, status: :unprocessable_entity
     end
   end
 end
