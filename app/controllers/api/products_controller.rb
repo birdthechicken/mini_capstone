@@ -6,8 +6,14 @@ class Api::ProductsController < ApplicationController
     discounted = params[:discount]
     sort_attribute = params[:sort]
     sort_order = params[:sort_order]
+    category_name = params[:category]
     
     @products = Product.all
+
+    if category_name
+      category = Category.find_by(name: category_name)
+      @products = category.products
+    end
 
     if search_term
       @products = @products.where("name iLIKE ?", "%#{search_term}%")
