@@ -20,9 +20,10 @@ class Product < ApplicationRecord
   #   Supplier.find_by(id: self.supplier_id) 
   # end
 
-  has_many :orders
+  
   has_many :product_categories
   has_many :categories, through: :product_categories
+  has_many :order, through: :carted_products
 
   # def categories 
   #   product_categories.map { |product_category| product_category.category }   

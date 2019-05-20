@@ -4,4 +4,5 @@ class User < ApplicationRecord
   validates :email, uniqueness: true
 
   has_many :orders
+  has_many :carted_products
 end
