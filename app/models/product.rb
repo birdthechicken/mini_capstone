@@ -23,7 +23,10 @@ class Product < ApplicationRecord
   
   has_many :product_categories
   has_many :categories, through: :product_categories
-  has_many :order, through: :carted_products
+
+  has_many :carted_products
+  has_many :orders, through: :carted_products
+  has_many :users, through: :carted_products
 
   # def categories 
   #   product_categories.map { |product_category| product_category.category }   
